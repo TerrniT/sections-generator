@@ -1,0 +1,18 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import type { {{name}}Props } from '../types'
+
+const props = defineProps<{{name}}Props>()
+</script>
+
+<template>
+  <div class="{{name}}-common">
+    <h2>{{name}} Common Component</h2>
+  </div>
+</template>
+
+<style scoped>
+.{{name}}-common {
+  /* Add your styles here */
+}
+</style>
