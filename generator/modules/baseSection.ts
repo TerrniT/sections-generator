@@ -1,61 +1,56 @@
-export default function (plop) {
-  // Add uppercase helper
-  plop.setHelper('uppercase', (txt) => txt.toUpperCase());
+import type { NodePlopAPI } from "plop"
+import validateSectionName from "./utils/validateSectionName"
 
-  plop.setGenerator('section', {
+export default (plop: NodePlopAPI) => {
+plop.setGenerator('section', {
     description: 'Generate a new section',
     prompts: [{
       type: 'input',
       name: 'name',
       message: 'Section name (PascalCase):',
-      validate: (value) => {
-        if (/^[A-Z][a-zA-Z0-9]+$/.test(value)) {
-          return true;
-        }
-        return 'Section name must be in PascalCase (e.g., UserProfile)';
-      }
+      validate: (value) => validateSectionName(value),
     }],
     actions: [
       // Create section folder
       {
         type: 'add',
         path: 'src/sections/{{name}}/components/{{name}}Common.vue',
-        templateFile: 'plop-templates/section/components/SectionCommon.vue.hbs'
+        templateFile: 'generator/templates/section/components/SectionCommon.vue.hbs'
       },
       {
         type: 'add',
         path: 'src/sections/{{name}}/constants.ts',
-        templateFile: 'plop-templates/section/constants.ts.hbs'
+        templateFile: 'generator/templates/section/constants.ts.hbs'
       },
       {
         type: 'add',
         path: 'src/sections/{{name}}/controls.ts',
-        templateFile: 'plop-templates/section/controls.ts.hbs'
+        templateFile: 'generator/templates/section/controls.ts.hbs'
       },
       {
         type: 'add',
         path: 'src/sections/{{name}}/edit.ts',
-        templateFile: 'plop-templates/section/edit.ts.hbs'
+        templateFile: 'generator/templates/section/edit.ts.hbs'
       },
       {
         type: 'add',
         path: 'src/sections/{{name}}/view.ts',
-        templateFile: 'plop-templates/section/view.ts.hbs'
+        templateFile: 'generator/templates/section/view.ts.hbs'
       },
       {
         type: 'add',
         path: 'src/sections/{{name}}/styles.ts',
-        templateFile: 'plop-templates/section/styles.ts.hbs'
+        templateFile: 'generator/templates/section/styles.ts.hbs'
       },
       {
         type: 'add',
         path: 'src/sections/{{name}}/templates.ts',
-        templateFile: 'plop-templates/section/templates.ts.hbs'
+        templateFile: 'generator/templates/section/templates.ts.hbs'
       },
       {
         type: 'add',
         path: 'src/sections/{{name}}/types.ts',
-        templateFile: 'plop-templates/section/types.ts.hbs'
+        templateFile: 'generator/templates/section/types.ts.hbs'
       }
     ]
   });
